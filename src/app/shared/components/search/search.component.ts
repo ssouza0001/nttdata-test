@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
   searchForm!: FormGroup;
   error: boolean | null = null;
   movieData!: Movie | null;
+  hideLoading: boolean = true;
 
 
   constructor(
@@ -47,6 +48,7 @@ export class SearchComponent implements OnInit {
 
   search(): void {
     if (this.searchForm.valid) {
+      this.hideLoading = false;
       this.service.getMovieData(this.searchForm.value.search).subscribe({
         next:(data) => {
           if (data.Response === 'False') {
@@ -63,6 +65,9 @@ export class SearchComponent implements OnInit {
         },
         error: (e: Error) => {
           console.log(e);
+        },
+        complete: () => {
+          this.hideLoading = true;
         }
       });
 

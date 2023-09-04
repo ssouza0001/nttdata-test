@@ -16,6 +16,10 @@
         (click)="search()"
       >
         Search
+        <span
+          class="spinner-border spinner-border-sm text-light"
+          [ngClass]="{ 'd-none': hideLoading }"
+        ></span>
       </button>
     </div>
     <div class="col-md-2">
