@@ -33,5 +33,12 @@
         </div>
       </div>
     </div>
+    <div
+      class="spinner-border text-primary"
+      role="status"
+      [ngClass]="{ 'd-none': hideLoading }"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
 </div>

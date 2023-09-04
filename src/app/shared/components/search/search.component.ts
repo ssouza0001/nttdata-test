@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Movie } from '../../models/movie.model';
 import { map } from 'rxjs';
@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit {
   error: boolean | null = null;
   movieData!: Movie | null;
   hideLoading: boolean = true;
+  @Output() outputHideLoading = new EventEmitter();
 
 
   constructor(
@@ -29,6 +30,7 @@ export class SearchComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.outputHideLoading.emit(true);
     this.searchForm = this.fb.group({
       search: ['', [Validators.required]]
     });
@@ -49,6 +51,7 @@ export class SearchComponent implements OnInit {
   search(): void {
     if (this.searchForm.valid) {
       this.hideLoading = false;
+      this.outputHideLoading.emit(false);
       this.service.getMovieData(this.searchForm.value.search).subscribe({
         next:(data) => {
           if (data.Response === 'False') {
@@ -67,6 +70,7 @@ export class SearchComponent implements OnInit {
           console.log(e);
         },
         complete: () => {
+          this.outputHideLoading.emit(true);
           this.hideLoading = true;
         }
       });

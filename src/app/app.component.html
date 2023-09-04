@@ -13,8 +13,8 @@
   </div>
 </div>
 
-<app-search></app-search>
+<app-search (outputHideLoading)="getDisplayLoading($event)"></app-search>
 
-<app-movie-details></app-movie-details>
+<app-movie-details [hideLoading]="hideLoading"></app-movie-details>
 
 <app-footer></app-footer>

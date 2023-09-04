@@ -7,7 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'nttdata-teste';
+  hideLoading: boolean = false;
 
-
+  getDisplayLoading(data: boolean) {
+    this.hideLoading = data;
+  }
 
 }

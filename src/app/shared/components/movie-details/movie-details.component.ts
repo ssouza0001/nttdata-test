@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/store';
 import { map } from 'rxjs';
@@ -11,6 +11,8 @@ import { map } from 'rxjs';
 export class MovieDetailsComponent {
 
   favItem: boolean = false;
+
+  @Input() hideLoading!: boolean;
 
   constructor(private store: Store<{movie: IAppState}>) {}
 
