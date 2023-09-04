@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'nttdata-teste';
   hideLoading: boolean = false;
 
-  getDisplayLoading(data: boolean) {
+  getDisplayLoading(data: boolean): void {
     this.hideLoading = data;
   }
 
