@@ -1,0 +1,37 @@
+<div class="container container-fluid">
+  <div class="row justify-content-center">
+    <div class="col col-md-6 text-left">
+      <div *ngIf="movie$ | async as movie">
+        <h2>{{ movie?.Title }}</h2>
+        <p><strong>Plot:</strong> {{ movie.Plot }}</p>
+        <p><strong>Actors:</strong> {{ movie.Actors }}</p>
+        <p>
+          <strong>Review:</strong>
+          <ngb-rating
+            [max]="5"
+            [rate]="
+              movie.Ratings.length ? convertRanking(movie.Ratings[0].Value) : 0
+            "
+            [readonly]="true"
+          >
+          </ngb-rating>
+        </p>
+        <button class="btn btn-primary col-4 mt-2" (click)="setFavorite()">
+          Favorite
+          <i [ngClass]="favItem ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6 text-center pb-4 mb-4">
+      <div *ngIf="movie$ | async as movie">
+        <div *ngIf="movie.Poster !== 'N/A'">
+          <img
+            [src]="movie.Poster !== 'N/A' ? movie.Poster : ''"
+            alt="{{ movie.Poster !== 'N/A' ? movie.Poster : '' }}"
+            class="img-fluid pb-4 mb-4"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

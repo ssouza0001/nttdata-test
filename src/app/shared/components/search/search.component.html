@@ -1,0 +1,26 @@
+<div class="container container-fluid mt-4 mb-4">
+  <form
+    [formGroup]="searchForm"
+    class="d-flex justify-content-center align-items-center"
+  >
+    <div class="col-md-4 me-4">
+      <input type="text" class="form-control" formControlName="search" />
+    </div>
+    <div class="col-md-2">
+      <button
+        class="btn btn-primary col-8"
+        [disabled]="
+          !this.searchForm.value.search ||
+          this.searchForm.value.search.length < 3
+        "
+        (click)="search()"
+      >
+        Search
+      </button>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary col-8" (click)="reset()">Reset</button>
+    </div>
+  </form>
+  <div *ngIf="error">Movie was not found!</div>
+</div>
