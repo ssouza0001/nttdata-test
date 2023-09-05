@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 import { SearchMovieService } from 'src/app/core/services/search-movie.service';
 import { IAppState, setMovieData } from 'src/store';
 import { Store } from '@ngrx/store';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-search',
@@ -14,7 +15,6 @@ import { Store } from '@ngrx/store';
 export class SearchComponent implements OnInit {
 
   searchForm!: FormGroup;
-  error: boolean | null = null;
   movieData!: Movie | null;
   hideLoading: boolean = true;
   @Output() outputHideLoading = new EventEmitter();
@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: SearchMovieService,
+    private _snackBar: MatSnackBar,
     private store: Store<{movie: IAppState}>,
     ){}
 
@@ -40,11 +41,17 @@ export class SearchComponent implements OnInit {
 
   }
 
+  openSnackBar() {
+    let action = 'close';
+    let message = 'Movie was not found!';
+    this._snackBar.open(message, action, {
+      duration: 2500
+     });
+  }
 
   reset(): void {
 
     this.searchForm.reset();
-    this.error = null;
     this.store.dispatch(setMovieData({ data: null }));
   }
 
@@ -55,12 +62,11 @@ export class SearchComponent implements OnInit {
       this.service.getMovieData(this.searchForm.value.search).subscribe({
         next:(data) => {
           if (data.Response === 'False') {
-            this.error = true;
+            this.openSnackBar();
             this.movieData = null;
             this.store.dispatch(setMovieData({ data: this.movieData }));
 
           } else {
-            this.error = false;
             this.movieData = data;
             this.store.dispatch(setMovieData({ data: this.movieData }));
           }
