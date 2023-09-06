@@ -2,11 +2,13 @@
   <div class="row justify-content-center">
     <div class="col col-md-6 text-left">
       <div *ngIf="movie$ | async as movie">
-        <h2>{{ movie?.Title }}</h2>
-        <p><strong>Plot:</strong> {{ movie.Plot }}</p>
+        <h2>
+          <strong>{{ movie?.Title }}</strong>
+        </h2>
+        <p>{{ movie.Plot }}</p>
         <p><strong>Actors:</strong> {{ movie.Actors }}</p>
         <p>
-          <strong>Review:</strong>
+          <strong>Review: </strong>
           <ngb-rating
             [max]="5"
             [rate]="
@@ -18,7 +20,10 @@
         </p>
         <button class="btn btn-primary col-4 mt-2" (click)="setFavorite()">
           Favorite
-          <i [ngClass]="favItem ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
+          <i
+            [ngStyle]="{ color: favItem ? '	#FF1493' : '' }"
+            [ngClass]="favItem ? 'bi bi-heart-fill' : 'bi bi-heart'"
+          ></i>
         </button>
       </div>
     </div>
